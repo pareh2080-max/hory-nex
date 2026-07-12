@@ -33,6 +33,16 @@ jobs:
       - name: Installer les dépendances
         run: flutter pub get
 
+      - name: Analyse des erreurs (diagnostic public)
+        run: |
+          set +e
+          flutter analyze > analyze.txt 2>&1
+          echo "## Résultat flutter analyze" >> "$GITHUB_STEP_SUMMARY"
+          echo '```' >> "$GITHUB_STEP_SUMMARY"
+          cat analyze.txt >> "$GITHUB_STEP_SUMMARY"
+          echo '```' >> "$GITHUB_STEP_SUMMARY"
+          exit 0
+
       - name: Lancer les tests
         run: flutter test || echo "Tests ignorés"
 
