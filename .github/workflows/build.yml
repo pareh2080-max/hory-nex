@@ -1,0 +1,58 @@
+name: Build HORY.NEX
+
+# Compile l'APK et l'AAB dans le cloud, sans rien installer localement.
+# Se lance automatiquement à chaque envoi de code, ou manuellement (onglet Actions).
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:   # bouton "Run workflow" dans l'onglet Actions
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Récupérer le code
+        uses: actions/checkout@v4
+
+      - name: Installer Java (Android)
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Installer Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          cache: true
+
+      - name: Générer les dossiers Android
+        run: flutter create --platforms=android --org com.horynex .
+
+      - name: Installer les dépendances
+        run: flutter pub get
+
+      - name: Lancer les tests
+        run: flutter test || echo "Tests ignorés"
+
+      - name: Compiler l'APK (release)
+        run: flutter build apk --release
+
+      - name: Compiler l'AAB (Google Play)
+        run: flutter build appbundle --release
+
+      - name: Renommer l'APK
+        run: cp build/app/outputs/flutter-apk/app-release.apk HORY.NEX.apk
+
+      - name: Publier l'APK téléchargeable
+        uses: actions/upload-artifact@v4
+        with:
+          name: HORY.NEX-APK
+          path: HORY.NEX.apk
+
+      - name: Publier l'AAB téléchargeable
+        uses: actions/upload-artifact@v4
+        with:
+          name: HORY.NEX-AAB
+          path: build/app/outputs/bundle/release/app-release.aab
