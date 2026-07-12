@@ -1,0 +1,78 @@
+name: hory_nex
+description: HORY.NEX - Gestion complète d'une organisation PREPAC en Haïti (hors ligne + Google Drive).
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.5.0 <4.0.0'
+  flutter: '>=3.27.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.6
+
+  # Gestion d'état (MVVM)
+  flutter_riverpod: ^2.5.1
+
+  # Base de données hors ligne
+  sqflite: ^2.3.3
+  path: ^1.9.0
+  path_provider: ^2.1.3
+
+  # Sécurité / chiffrement
+  crypto: ^3.0.3
+  shared_preferences: ^2.2.3
+
+  # PDF / impression
+  pdf: ^3.11.0
+  printing: ^5.13.1
+
+  # QR Code / code-barres
+  qr_flutter: ^4.1.0
+  barcode_widget: ^2.0.4
+  mobile_scanner: ^5.1.1
+
+  # Partage (WhatsApp, Bluetooth, Email via intents Android)
+  share_plus: ^9.0.0
+  url_launcher: ^6.3.0
+
+  # Graphiques (dashboard analytique)
+  fl_chart: ^0.68.0
+
+  # Photos
+  image_picker: ^1.1.2
+
+  # Export Excel / CSV
+  excel: ^4.0.3
+  csv: ^6.0.0
+
+  # Calendrier
+  table_calendar: ^3.1.2
+
+  # Notifications locales
+  flutter_local_notifications: ^17.1.2
+
+  # Formatage dates / intl
+  intl: ^0.19.0
+
+  # Google Drive (sauvegarde / restauration)
+  google_sign_in: ^6.2.1
+  googleapis: ^13.2.0
+  googleapis_auth: ^1.6.0
+  http: ^1.2.1
+
+  # Utilitaires
+  uuid: ^4.4.0
+  connectivity_plus: ^6.0.3
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/
+    - assets/icons/
