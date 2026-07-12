@@ -7,7 +7,8 @@ import '../models/student.dart';
 class StudentBalance {
   final double montantPrepac;
   final double totalPaye;
-  double get solde => (montantPrepac - totalPaye).clamp(0, double.infinity);
+  double get solde =>
+      (montantPrepac - totalPaye).clamp(0, double.infinity).toDouble();
   PaymentStatus get status {
     if (totalPaye <= 0) return PaymentStatus.impaye;
     if (totalPaye >= montantPrepac && montantPrepac > 0) return PaymentStatus.paye;
@@ -116,7 +117,7 @@ class PaymentRepository {
         'SELECT COALESCE(SUM(montant_prepac),0) AS s FROM students');
     final total = (prepac.first['s'] as num).toDouble();
     final encaisse = await totalEncaisse();
-    return (total - encaisse).clamp(0, double.infinity);
+    return (total - encaisse).clamp(0, double.infinity).toDouble();
   }
 
   Future<double> encaisseEntre(DateTime debut, DateTime fin) async {

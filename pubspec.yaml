@@ -28,10 +28,8 @@ dependencies:
   pdf: ^3.11.0
   printing: ^5.13.1
 
-  # QR Code / code-barres
+  # QR Code (affichage) — le code-barres du reçu est généré par le paquet pdf
   qr_flutter: ^4.1.0
-  barcode_widget: ^2.0.4
-  mobile_scanner: ^5.1.1
 
   # Partage (WhatsApp, Bluetooth, Email via intents Android)
   share_plus: ^9.0.0
@@ -50,9 +48,6 @@ dependencies:
   # Calendrier
   table_calendar: ^3.1.2
 
-  # Notifications locales
-  flutter_local_notifications: ^17.1.2
-
   # Formatage dates / intl
   intl: ^0.19.0
 
@@ -64,7 +59,6 @@ dependencies:
 
   # Utilitaires
   uuid: ^4.4.0
-  connectivity_plus: ^6.0.3
 
 dev_dependencies:
   flutter_test:
