@@ -38,18 +38,22 @@ jobs:
           set +e
           flutter analyze > analyze.txt 2>&1
           cat analyze.txt
-          while IFS= read -r line; do
-            case "$line" in
-              *"•"*) echo "::error::${line}" ;;
-            esac
-          done < analyze.txt
+          grep "error •" analyze.txt | while IFS= read -r line; do echo "::error::${line}"; done
           exit 0
 
       - name: Lancer les tests
         run: flutter test || echo "Tests ignorés"
 
       - name: Compiler l'APK (release)
-        run: flutter build apk --release
+        run: |
+          set +e
+          flutter build apk --release 2>&1 | tee apk_build.txt
+          code=${PIPESTATUS[0]}
+          if [ "$code" -ne 0 ]; then
+            grep -iE "error|exception|failure|not found|unresolved|namespace|requires|desugar|gradle|sdk version" apk_build.txt \
+              | tail -n 50 | while IFS= read -r line; do echo "::error::APK: ${line}"; done
+          fi
+          exit $code
 
       - name: Compiler l'AAB (Google Play)
         run: flutter build appbundle --release
