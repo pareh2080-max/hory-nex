@@ -1,6 +1,8 @@
 name: Build HORY.NEX
 
-# Compile l'APK et l'AAB dans le cloud, sans rien installer localement.
+# Compile l'application dans le cloud, sans rien installer localement :
+#   - APK + AAB pour Android (téléphone)
+#   - .zip Windows (ordinateur)
 # Se lance automatiquement à chaque envoi de code, ou manuellement (onglet Actions).
 
 on:
@@ -9,7 +11,10 @@ on:
   workflow_dispatch:   # bouton "Run workflow" dans l'onglet Actions
 
 jobs:
-  build:
+  # ============================================================
+  #  ANDROID  →  téléphone
+  # ============================================================
+  android:
     runs-on: ubuntu-latest
     steps:
       - name: Récupérer le code
@@ -82,3 +87,45 @@ jobs:
         with:
           name: HORY.NEX-AAB
           path: build/app/outputs/bundle/release/app-release.aab
+
+  # ============================================================
+  #  WINDOWS  →  ordinateur
+  # ============================================================
+  windows:
+    runs-on: windows-latest
+    steps:
+      - name: Récupérer le code
+        uses: actions/checkout@v4
+
+      - name: Installer Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          cache: true
+
+      - name: Générer le dossier Windows
+        run: |
+          flutter create --platforms=windows --org com.horynex .
+          Remove-Item test/widget_test.dart -ErrorAction SilentlyContinue
+
+      - name: Installer les dépendances
+        run: flutter pub get
+
+      - name: Compiler l'application Windows (release)
+        run: flutter build windows --release
+
+      - name: Zipper l'application Windows
+        shell: pwsh
+        run: |
+          $rel = Get-ChildItem -Path build/windows -Recurse -Directory `
+            | Where-Object { $_.FullName -match 'runner[\\/]+Release$' } `
+            | Select-Object -First 1
+          if (-not $rel) { throw "Dossier Release introuvable" }
+          Write-Host "Release: $($rel.FullName)"
+          Compress-Archive -Path "$($rel.FullName)\*" -DestinationPath HORY.NEX-Windows.zip -Force
+
+      - name: Publier l'application Windows téléchargeable
+        uses: actions/upload-artifact@v4
+        with:
+          name: HORY.NEX-Windows
+          path: HORY.NEX-Windows.zip
