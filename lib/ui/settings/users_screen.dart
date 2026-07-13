@@ -51,7 +51,7 @@ class _UsersScreenState extends ConsumerState<UsersScreen> {
               TextField(controller: password, obscureText: true, decoration: const InputDecoration(labelText: 'Mot de passe *')),
               const SizedBox(height: 8),
               DropdownButtonFormField<UserRole>(
-                initialValue: role,
+                value: role,
                 decoration: const InputDecoration(labelText: 'Rôle'),
                 items: UserRole.values
                     .map((r) => DropdownMenuItem(value: r, child: Text(r.label)))

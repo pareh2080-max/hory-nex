@@ -68,7 +68,7 @@ class _AddPaymentDialogState extends ConsumerState<AddPaymentDialog> {
             ),
             const SizedBox(height: 12),
             DropdownButtonFormField<PaymentMode>(
-              initialValue: _mode,
+              value: _mode,
               decoration: const InputDecoration(labelText: 'Mode de paiement'),
               items: PaymentMode.values
                   .map((m) => DropdownMenuItem(value: m, child: Text(m.label)))

@@ -57,7 +57,7 @@ class _ScheduleScreenState extends ConsumerState<ScheduleScreen> {
               TextField(controller: cours, decoration: const InputDecoration(labelText: 'Cours *')),
               const SizedBox(height: 8),
               DropdownButtonFormField<String>(
-                initialValue: jour,
+                value: jour,
                 decoration: const InputDecoration(labelText: 'Jour'),
                 items: ScheduleRepository.jours
                     .map((j) => DropdownMenuItem(value: j, child: Text(j)))

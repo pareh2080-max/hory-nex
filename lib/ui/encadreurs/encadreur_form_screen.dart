@@ -119,7 +119,7 @@ class _EncadreurFormScreenState extends ConsumerState<EncadreurFormScreen> {
             _f(_specialite, 'Spécialité'),
             _f(_matiere, 'Matière enseignée'),
             DropdownButtonFormField<String>(
-              initialValue: _axe,
+              value: _axe,
               isExpanded: true,
               decoration: const InputDecoration(labelText: 'Axe'),
               items: Filieres.axes
@@ -130,7 +130,7 @@ class _EncadreurFormScreenState extends ConsumerState<EncadreurFormScreen> {
             const SizedBox(height: 12),
             _f(_dispo, 'Disponibilité'),
             DropdownButtonFormField<String>(
-              initialValue: _statut,
+              value: _statut,
               decoration: const InputDecoration(labelText: 'Statut'),
               items: const ['Actif', 'Inactif', 'Congé']
                   .map((s) => DropdownMenuItem(value: s, child: Text(s)))

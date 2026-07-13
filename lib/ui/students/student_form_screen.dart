@@ -280,7 +280,7 @@ class _StudentFormScreenState extends ConsumerState<StudentFormScreen> {
     return Padding(
       padding: const EdgeInsets.only(bottom: 12),
       child: DropdownButtonFormField<String>(
-        initialValue: items.contains(value) ? value : null,
+        value: items.contains(value) ? value : null,
         isExpanded: true,
         decoration: InputDecoration(labelText: label),
         items: items

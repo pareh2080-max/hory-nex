@@ -59,7 +59,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
             TextField(controller: titre, decoration: const InputDecoration(labelText: 'Titre *')),
             const SizedBox(height: 12),
             DropdownButtonFormField<String>(
-              initialValue: type,
+              value: type,
               decoration: const InputDecoration(labelText: 'Type'),
               items: _types.entries
                   .map((e) => DropdownMenuItem(value: e.key, child: Text(e.value.$1)))

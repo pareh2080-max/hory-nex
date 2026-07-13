@@ -2,6 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:hory_nex/core/data/haiti_locations.dart';
 import 'package:hory_nex/core/data/filieres.dart';
 import 'package:hory_nex/repositories/payment_repository.dart';
+import 'package:hory_nex/models/payment.dart';
 
 void main() {
   group('Données Haïti', () {
