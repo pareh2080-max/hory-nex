@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/theme/app_colors.dart';
 import '../../core/utils/formatters.dart';
+import '../../models/payment.dart';
 import '../../providers.dart';
 import '../../repositories/payment_repository.dart';
 import '../students/student_detail_screen.dart';

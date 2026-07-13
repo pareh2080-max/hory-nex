@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/theme/app_colors.dart';
 import '../../core/utils/formatters.dart';
+import '../../models/app_user.dart';
 import '../../providers.dart';
 import '../attendance/attendance_screen.dart';
 import '../calendar/calendar_screen.dart';

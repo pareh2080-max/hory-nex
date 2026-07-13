@@ -28,7 +28,10 @@ jobs:
           cache: true
 
       - name: Générer les dossiers Android
-        run: flutter create --platforms=android --org com.horynex .
+        run: |
+          flutter create --platforms=android --org com.horynex .
+          # Supprime le test par défaut généré (référence MyApp inexistant)
+          rm -f test/widget_test.dart
 
       - name: Installer les dépendances
         run: flutter pub get
