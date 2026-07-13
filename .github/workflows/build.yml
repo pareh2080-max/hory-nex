@@ -32,6 +32,13 @@ jobs:
           flutter create --platforms=android --org com.horynex .
           # Supprime le test par défaut généré (référence MyApp inexistant)
           rm -f test/widget_test.dart
+          # Force compileSdk/targetSdk à 35 (certaines libs androidx exigent 34+)
+          GRADLE_FILE=android/app/build.gradle.kts
+          [ -f android/app/build.gradle ] && GRADLE_FILE=android/app/build.gradle
+          sed -i -E 's/compileSdk(Version)?[ =]+flutter\.compileSdkVersion/compileSdk = 35/' "$GRADLE_FILE"
+          sed -i -E 's/targetSdk(Version)?[ =]+flutter\.targetSdkVersion/targetSdk = 35/' "$GRADLE_FILE"
+          echo "=== Config Android SDK ==="
+          grep -nE "compileSdk|targetSdk|minSdk" "$GRADLE_FILE" || true
 
       - name: Installer les dépendances
         run: flutter pub get
